@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="splash_width">160dp</dimen>
+    <dimen name="splash_height">80dp</dimen>
+</resources>
