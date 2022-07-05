@@ -1,5 +1,8 @@
 package gr.panostr.vivatask.io.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -12,7 +15,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 @Entity(tableName = "product")
-public class Product {
+public class Product implements Parcelable {
 
     // ===========================================================
     // Constants
@@ -76,6 +79,27 @@ public class Product {
     // ================================================================================
 
 
+    protected Product(Parcel in) {
+        Id = in.readInt();
+        Name = in.readString();
+        Price = in.readString();
+        Thumbnail = in.readString();
+        Image = in.readString();
+        Description = in.readString();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
     public int getId() {
         return Id;
     }
@@ -122,5 +146,20 @@ public class Product {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(Id);
+        parcel.writeString(Name);
+        parcel.writeString(Price);
+        parcel.writeString(Thumbnail);
+        parcel.writeString(Image);
+        parcel.writeString(Description);
     }
 }

@@ -1,7 +1,7 @@
 package gr.panostr.vivatask.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -59,7 +59,8 @@ public class SplashActivity extends BaseActivity implements Callback<ArrayList<P
                 } else {
                     database.close();
                     runOnUiThread(() -> {
-                        Toast.makeText(SplashActivity.this, "CONTINUE", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SplashActivity.this, ProductsActivity.class);
+                        startActivity(intent);
                     });
                 }
             }
@@ -73,17 +74,20 @@ public class SplashActivity extends BaseActivity implements Callback<ArrayList<P
         new Thread(() -> {
             if (!Thread.currentThread().isInterrupted()) {
                 ProductsDatabase database = ProductsDatabase.getInstance(this);
-                for (Product productItem : products) {
-                    database.productDAO().insertProduct(productItem);
-                }
+//                if (database.isOpen()) {
+                    for (Product productItem : products) {
+                        database.productDAO().insertProduct(productItem);
+                    }
 
-                database.close();
+                    database.close();
+//                }
             }
             Thread.currentThread().interrupt();
         }).start();
 
         runOnUiThread(() -> {
-            Toast.makeText(SplashActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SplashActivity.this, ProductsActivity.class);
+            startActivity(intent);
         });
     }
 

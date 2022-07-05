@@ -1,4 +1,9 @@
 <resources>
     <dimen name="splash_width">480dp</dimen>
     <dimen name="splash_height">240dp</dimen>
+    <dimen name="text_height">32dp</dimen>
+    <dimen name="image">120dp</dimen>
+    <dimen name="padding">24dp</dimen>
+    <dimen name="margin">48dp</dimen>
+    <dimen name="price">24sp</dimen>
 </resources>
